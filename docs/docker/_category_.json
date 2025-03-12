@@ -1,8 +1,7 @@
 {
-  "label": "Docker",
-  "position": 4,
-  "link": {
-    "type": "generated-index",
-    "description": "Alles rundum Docker."
-  }
+    "label": "Docker",
+    "link": {
+        "type": "generated-index",
+        "description": "Alles rundum Docker."
+    }
 }
