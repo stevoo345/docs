@@ -20,10 +20,12 @@
     "@mdx-js/react": "^3.0.0",
     "@tailwindcss/postcss": "^4.0.13",
     "clsx": "^2.0.0",
+    "motion": "^12.5.0",
     "postcss": "^8.5.3",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.13"
   },
   "devDependencies": {
