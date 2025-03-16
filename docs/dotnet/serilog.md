@@ -3,8 +3,8 @@
 ## Install Nuget
 
 - Serilog.AspNetCore
-- Serilog.Settings.Configuration
-- Serilog.Enrichers.ClientInfo
+- Serilog.Settings.Configuration (Appsettings configuration)
+- Serilog.Enrichers.ClientInfo (CorrelationId)
 
 ## Code
 
