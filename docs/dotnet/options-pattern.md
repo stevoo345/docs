@@ -22,7 +22,33 @@ public class MovieDbOptions
         "AccessToken": "..."
     }
 }
+```
 
+## Startup example
+
+```csharp title="startup.cs"
+builder.Services.AddRefitClient<IMovieDbApi>()
+    .ConfigureHttpClient((serviceProvider, c) =>
+    {
+        var movieDbOptions = serviceProvider.GetRequiredService<IOptions<MovieDbOptions>>().Value;
+        ...
+    });
+```
+
+## Endpoint example
+
+```csharp title="MoviesController.cs"
+public class MoviesController : ControllerBase
+{
+    private readonly MovieDbOptions _movieDbOptions;
+
+    public MoviesController(IOptions<MovieDbOptions> movieDbOptions)
+    {
+        _movieDbOptions = movieDbOptions.Value;
+    }
+
+    // Jetzt kannst du _movieDbOptions in deinen Action-Methoden nutzen.
+}
 ```
 
 ## Komplexe Validierung
