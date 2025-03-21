@@ -84,6 +84,8 @@ app.UseHttpLogging();
 }
 ```
 
+Mehr Info unter: https://learn.microsoft.com/de-de/aspnet/core/fundamentals/http-logging/?view=aspnetcore-9.0
+
 ## Request Response Logging (Alt)
 
 ```csharp title="RequestResponseLoggingOptions.cs"
