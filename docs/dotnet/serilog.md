@@ -58,9 +58,9 @@ builder.Host.UseSerilog((context, config) =>
 ```csharp title="Program.cs"
 builder.Services.AddHttpLogging(options =>
 {
-    options.LoggingFields = HttpLoggingFields.RequestBody | HttpLoggingFields.ResponseBody |
+    options.LoggingFields = HttpLoggingFields.RequestPath | HttpLoggingFields.RequestBody |
                             HttpLoggingFields.RequestMethod | HttpLoggingFields.RequestQuery |
-                            HttpLoggingFields.Duration;
+                            HttpLoggingFields.ResponseBody | HttpLoggingFields.Duration;
     options.RequestBodyLogLimit = 2028;
     options.ResponseBodyLogLimit = 2028;
     //options.CombineLogs = true;
