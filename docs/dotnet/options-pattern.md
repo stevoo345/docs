@@ -26,12 +26,13 @@ public class MovieDbOptions
 
 ## Startup example
 
-```csharp title="startup.cs"
+```csharp title="Program.cs"
+var movieDbOptions = builder.Configuration.Get<MovieDbOptions>()!;
 builder.Services.AddRefitClient<IMovieDbApi>()
-    .ConfigureHttpClient((serviceProvider, c) =>
+    .ConfigureHttpClient((c) =>
     {
-        var movieDbOptions = serviceProvider.GetRequiredService<IOptions<MovieDbOptions>>().Value;
-        ...
+        c.BaseAddress = new Uri("https://api.themoviedb.org/3");
+        c.DefaultRequestHeaders.Add("Authorization", $"Bearer {movieDbOptions.AccessToken}");
     });
 ```
 

@@ -12,7 +12,7 @@ Eine basiskonfiguration mit folgenden Inhalten:
 - Root redirect auf Scalar Dokumenation
 - Default Exception Handler
 
-```csharp title="startup.cs"
+```csharp title="Program.cs"
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.HttpLogging;

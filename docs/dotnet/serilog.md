@@ -8,7 +8,7 @@
 
 ## Code
 
-```csharp title="programm.cs"
+```csharp title="Program.cs"
 builder.Host.UseSerilog((context, config) =>
 {
     config.ReadFrom.Configuration(context.Configuration);
@@ -53,7 +53,38 @@ builder.Host.UseSerilog((context, config) =>
 }
 ```
 
-## Request Response Logging
+## Http Logging (Neu)
+
+```csharp title="Program.cs"
+builder.Services.AddHttpLogging(options =>
+{
+    options.LoggingFields = HttpLoggingFields.RequestBody | HttpLoggingFields.ResponseBody |
+                            HttpLoggingFields.RequestMethod | HttpLoggingFields.RequestQuery |
+                            HttpLoggingFields.Duration;
+    options.RequestBodyLogLimit = 2028;
+    options.ResponseBodyLogLimit = 2028;
+    //options.CombineLogs = true;
+});
+
+...
+
+app.UseHttpLogging();
+```
+
+```json title="appsettings.json"
+{
+    "Serilog": {
+        "MinimumLevel": {
+            "Override": {
+                // ...
+                "Microsoft.AspNetCore.HttpLogging.HttpLoggingMiddleware": "Information"
+            }
+        }
+    }
+}
+```
+
+## Request Response Logging (Alt)
 
 ```csharp title="RequestResponseLoggingOptions.cs"
 public class RequestResponseLoggingOptions
@@ -122,7 +153,7 @@ public class RequestResponseLoggingMiddleware(
 }
 ```
 
-```csharp title="programm.cs"
+```csharp title="Program.cs"
 builder.Services
     .AddOptions<RequestResponseLoggingOptions>()
     .Bind(builder.Configuration.GetSection("RequestResponseLogging"))

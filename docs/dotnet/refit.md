@@ -7,13 +7,13 @@
 
 ## Konfiguration
 
-```csharp title="startup.cs"
-var accessToken = builder.Configuration.GetValue<string>("AccessToken");
+```csharp title="Program.cs"
+var movieDbOptions = builder.Configuration.Get<MovieDbOptions>()!;
 builder.Services.AddRefitClient<IMovieDbApi>()
     .ConfigureHttpClient(c =>
     {
         c.BaseAddress = new Uri("https://api.themoviedb.org/3");
-        c.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+        c.DefaultRequestHeaders.Add("Authorization", $"Bearer {movieDbOptions.AccessToken}");
     });
 ```
 

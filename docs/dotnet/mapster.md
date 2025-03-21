@@ -40,7 +40,7 @@ public class MovieConfig : IRegister
 }
 ```
 
-```csharp title="Programm.cs"
+```csharp title="Program.cs"
 builder.Services.AddMapster();
 ```
 

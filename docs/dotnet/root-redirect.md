@@ -16,7 +16,7 @@ public static class DocumentationRedirectExtensions
 }
 ```
 
-```csharp title="startup.cs"
+```csharp title="Program.cs"
 app.MapRootToDocs("/scalar/v1");
 ```
 

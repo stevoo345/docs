@@ -20,7 +20,7 @@ public class DataContext(IConfiguration configuration) : DbContext
 }
 ```
 
-```csharp title="programm.cs"
+```csharp title="Program.cs"
 builder.Services.AddDbContext<DataContext>();
 ```
 

@@ -4,6 +4,8 @@ sidebar_position: 1
 
 # Dotnet EF Cheatsheet
 
+Übersicht nützlicher Funktionen für dotnet ef.
+
 ```powershell title="Install Tool"
 dotnet tool install --global dotnet-ef
 ```
