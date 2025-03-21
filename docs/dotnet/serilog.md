@@ -71,7 +71,7 @@ builder.Services.AddHttpLogging(options =>
 app.UseHttpLogging();
 ```
 
-```json title="appsettings.json"
+```json lines title="appsettings.json"
 {
     "Serilog": {
         "MinimumLevel": {
