@@ -1,4 +1,4 @@
-## Elasticsearch + Kibana
+# Elasticsearch + Kibana
 
 ## Local Development
 
@@ -21,6 +21,8 @@ API Key + Credentials notieren.
 Installieren:
 
 - Elastic.Serilog.Sinks
+
+https://github.com/elastic/ecs-dotnet/tree/main/src/Elastic.Serilog.Sinks#elasticsearch-appsettings-configuration
 
 ```json lines 
 {
