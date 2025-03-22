@@ -118,3 +118,13 @@ builder.Services.AddHttpLogging(options =>
 });
 builder.Services.AddHttpLoggingInterceptor<HttpLoggingInterceptor>();
 ```
+
+## Debugging
+
+Falls es mal Probleme geben sollte und nichts in die Logs selbst geschrieben wird.
+
+```csharp title="Program.cs"
+// Enable Serilog self-logging to debug Elasticsearch sink issues
+SelfLog.Enable(msg => Debug.WriteLine(msg));
+SelfLog.Enable(Console.Error);
+```
