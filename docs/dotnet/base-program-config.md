@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Basis Startup.cs
+# Basis Program.cs
 
 Eine basiskonfiguration mit folgenden Inhalten:
 
