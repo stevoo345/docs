@@ -53,7 +53,7 @@ builder.Host.UseSerilog((context, config) =>
 }
 ```
 
-## Http Logging (Neu)
+## Http Logging
 
 ```csharp title="Program.cs"
 builder.Services.AddHttpLogging(options =>
@@ -86,95 +86,35 @@ app.UseHttpLogging();
 
 Mehr Info unter: https://learn.microsoft.com/de-de/aspnet/core/fundamentals/http-logging/?view=aspnetcore-9.0
 
-## Request Response Logging (Alt)
+## Http Logging Interceptor
 
-```csharp title="RequestResponseLoggingOptions.cs"
-public class RequestResponseLoggingOptions
+Mittels Http Logging Interceptor lassen sich das http logging verhalten anpassen.
+Unten gibt es ein Beispiel für wie man spezielle Pfade exkludieren könnte vom Logging.
+https://learn.microsoft.com/en-us/aspnet/core/fundamentals/http-logging/?view=aspnetcore-9.0#ihttplogginginterceptor
+
+```csharp title="HttpLoggingInterceptor.cs"
+internal sealed class HttpLoggingInterceptor : IHttpLoggingInterceptor
 {
-    public HashSet<string> ExcludePathStartsWith { get; set; } = [];
-    public int MaxBodyLength { get; set; } = 2048;
-}
-```
-
-```csharp title="RequestResponseLoggingMiddleware.cs"
-public class RequestResponseLoggingMiddleware(
-    RequestDelegate next,
-    ILogger<RequestResponseLoggingMiddleware> logger,
-    IOptions<RequestResponseLoggingOptions> requestResponseLoggingOptions)
-{
-    private readonly RequestResponseLoggingOptions _options = requestResponseLoggingOptions.Value;
-
-    public async Task InvokeAsync(HttpContext context)
+    public ValueTask OnRequestAsync(HttpLoggingInterceptorContext logContext)
     {
-        // Skip logging for excluded paths
-        if (_options.ExcludePathStartsWith.Any(prefix => context.Request.Path.Value!.StartsWith(prefix)))
-        {
-            await next(context);
-            return;
-        }
+        IReadOnlyList<string> excludedPaths = ["/scalar/", "/openapi/"];
+        if (excludedPaths.Any(prefix => logContext.HttpContext.Request.Path.Value?.StartsWith(prefix) ?? false))
+            logContext.LoggingFields = HttpLoggingFields.None;
 
-        // Log the request
-        context.Request.EnableBuffering();
-        var requestBody = await ReadStreamAsync(context.Request.Body);
-        var queryString = context.Request.QueryString.HasValue ? context.Request.QueryString.Value : string.Empty;
-        var truncatedRequestBody = TruncateBody(requestBody);
-        logger.LogInformation(
-            $"Request: {context.Request.Method} {context.Request.Path}{queryString} {truncatedRequestBody}");
-        context.Request.Body.Position = 0;
-
-        // Capture the response
-        var originalResponseBodyStream = context.Response.Body;
-        using var responseBody = new MemoryStream();
-        context.Response.Body = responseBody;
-
-        await next(context);
-
-        // Log the response
-        context.Response.Body.Seek(0, SeekOrigin.Begin);
-        var responseBodyText = await new StreamReader(context.Response.Body).ReadToEndAsync();
-        var truncatedResponseBody = TruncateBody(responseBodyText);
-        logger.LogInformation($"Response: {context.Response.StatusCode} {truncatedResponseBody}");
-        context.Response.Body.Seek(0, SeekOrigin.Begin);
-
-        await responseBody.CopyToAsync(originalResponseBodyStream);
+        return default;
     }
 
-    private async Task<string> ReadStreamAsync(Stream stream)
+    public ValueTask OnResponseAsync(HttpLoggingInterceptorContext logContext)
     {
-        using var reader = new StreamReader(stream, Encoding.UTF8, leaveOpen: true);
-        var result = await reader.ReadToEndAsync();
-        stream.Seek(0, SeekOrigin.Begin);
-        return result;
-    }
-
-    private string TruncateBody(string body)
-    {
-        if (body.Length > _options.MaxBodyLength) return body[.._options.MaxBodyLength] + "... [TRUNCATED]";
-        return body;
+        return default;
     }
 }
 ```
 
 ```csharp title="Program.cs"
-builder.Services
-    .AddOptions<RequestResponseLoggingOptions>()
-    .Bind(builder.Configuration.GetSection("RequestResponseLogging"))
-    .ValidateDataAnnotations()
-    .ValidateOnStart();
-    
-...
-
-app.UseMiddleware<RequestResponseLoggingMiddleware>();
-```
-
-```json title="appsettings.json"
+builder.Services.AddHttpLogging(options =>
 {
-    "RequestResponseLogging": {
-        "ExcludePathStartsWith": [
-            "/scalar/",
-            "/openapi/"
-        ],
-        "MaxBodyLength": 2048
-    }
-}
+    ...
+});
+builder.Services.AddHttpLoggingInterceptor<HttpLoggingInterceptor>();
 ```
