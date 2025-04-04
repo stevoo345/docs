@@ -21,3 +21,8 @@ dotnet ef migrations add "Add_Movies"
 ```powershell title="Update Database"
 dotnet ef database update
 ```
+
+```powershell title="Create Migration SQL"
+# Create Database via CREATE DATABASE [YourDatabaseName]
+dotnet ef migrations script -i -o "create.sql
+```
