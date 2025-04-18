@@ -1,6 +1,6 @@
 # Options Pattern
 
-```csharp title="startup.cs"
+```csharp title="Program.cs"
 builder.Services
     .AddOptions<MovieDbOptions>()
     .Bind(builder.Configuration.GetSection("MovieDb"))

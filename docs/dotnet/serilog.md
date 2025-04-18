@@ -25,7 +25,8 @@ builder.Host.UseSerilog((context, config) =>
             "Default": "Information",
             "Override": {
                 "Microsoft.AspNetCore": "Warning",
-                "Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware": "Fatal"
+                "Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware": "Fatal",
+                "Microsoft.AspNetCore.HttpLogging.HttpLoggingMiddleware": "Information"
             }
         },
         "WriteTo": [
