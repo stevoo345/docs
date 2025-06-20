@@ -67,6 +67,8 @@ builder.Services.AddHttpLogging(options =>
     //options.CombineLogs = true;
 });
 
+// Needed for Correlation Id to work
+builder.Services.AddHttpContextAccessor();
 ...
 
 app.UseHttpLogging();
