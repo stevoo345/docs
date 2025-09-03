@@ -51,3 +51,20 @@ interpreter_python = auto
 ansible proxmox -m ping
 ```
 
+## Dry-Run Ansible Playbook
+
+```shell
+ansible-playbook site.yml --check --diff
+```
+
+## Install package in Ansible Python
+
+```shell
+pipx inject ansible passlib
+```
+
+## Ansible info
+
+```shell
+ansible --version
+```
