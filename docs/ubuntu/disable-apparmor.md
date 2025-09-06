@@ -1,4 +1,4 @@
-# Disbale AppArmor
+# Disable AppArmor
 
 On Host Container File editieren.
 
