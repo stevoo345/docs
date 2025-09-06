@@ -21,7 +21,7 @@ Thin provision: checked
 ## General
 
 Hostname + Uncheck unprivileged container!
-![General Image](static/img/create-lxc-general.png)
+![General Image](img/create-lxc-general.png)
 
 ## Allow root ssh
 
@@ -29,7 +29,7 @@ Hostname + Uncheck unprivileged container!
 
 ## Network settings
 
-![img.png](static/img/docker-network-settings.png)
+![img.png](img/docker-network-settings.png)
 
 ## Update + Upgrade
 
