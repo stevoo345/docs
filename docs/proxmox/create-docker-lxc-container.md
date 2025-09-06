@@ -29,7 +29,7 @@ Hostname + Uncheck unprivileged container!
 
 ## Network settings
 
-![img.png](/static/img/docker-network-settings.png)
+![img.png](static/img/docker-network-settings.png)
 
 ## Update + Upgrade
 
