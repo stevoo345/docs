@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Images bereinigen
+# Add ZFS Dataset to Container
 
 Folgende Zeile in der Konfigurationsdatei hinzufügen:
 
