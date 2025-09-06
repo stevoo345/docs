@@ -25,7 +25,7 @@ Hostname + Uncheck unprivileged container!
 
 ## Allow root ssh
 
-[Allow root ssh](../ubuntu/allow-root-ssh.md)
+[Follow this instruction guide here](../ubuntu/allow-root-ssh.md)
 
 ## Network settings
 
@@ -86,3 +86,44 @@ ssh -T git@github.com
 ```shell
 git clone git@github.com:OWNER/REPO.git
 ```
+
+## Install Docker
+
+Just follow the [Docker Installation Guide](https://docs.docker.com/engine/install/ubuntu/)
+
+Current Version:
+
+```shell
+apt-get update
+apt-get install ca-certificates curl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+```
+
+```shell
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### Verify
+
+```shell
+docker run hello-world
+```
+
+## Disable AppArmor
+
+When you get the error for AppArmor, disable it.
+
+```
+docker: Error response from daemon: AppArmor enabled on system but the docker-default profile could not be loaded: running '/usr/sbin/apparmor_parser -Kr /var/lib/docker/tmp/docker-default3371994258' failed with output: apparmor_parser: Unable to replace "docker-default".  apparmor_parser: Access denied. You need policy admin privileges to manage profiles.
+```
+
+[Follow this instruction guide here](../ubuntu/disable-apparmor.md)
