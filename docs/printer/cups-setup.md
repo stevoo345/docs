@@ -35,26 +35,26 @@ Am Ende über Drucker und test druck machen.
 
 ## Scanner einrichten
 
-## Install Sane
+### Install Sane
 
 ```shell
 apt-get install sane
 apt install libusb-0.1-4 #wichtig für drucker
 ```
 
-## Find Scanner
+### Find Scanner
 
 ```shell
 sane-find-scanner
 ```
 
-## Try Scanner
+### Try Scanner
 
 ```shell
 scanimage -L #or  for more info SANE_DEBUG_DLL=3 scanimage -L
 ```
 
-## Test Scan
+### Test Scan
 
 ```shell title="Color PDF"
 scanimage --mode "24bit Color" --resolution 300 --format=pdf > doc.pdf
@@ -64,26 +64,26 @@ scanimage --mode "24bit Color" --resolution 300 --format=pdf > doc.pdf
 scanimage --mode "Black & White" --resolution 300 --format=pdf > doc.pdf
 ```
 
-## Hilfe bei Fehlern
+### Hilfe bei Fehlern
 
-### Unplug and Plug in again
+#### Unplug and Plug in again
 
 Manchmal scheint es als wäre gerade nach Installationen besser, wenn man den Drucker ein und wieder einsteckt.
 
-### Falls Rechte fehlen für Drucker
+#### Falls Rechte fehlen für Drucker
 
 ```shell title="Black and White PDF"
  lsusb | grep -i brother | sed 's/://' | awk '{printf "/dev/bus/usb/%s/%s", $2,$4}' | xargs -i -t chmod 666 "{}"
  # Ergebnis ausführen
 ```
 
-### List all files
+#### List all files
 
 ```shell
 dpkg -L brscan3 | sort
 ```
 
-### Sane looking in wrong directory
+#### Sane looking in wrong directory
 
 ```shell
 mkdir -p /usr/lib/x86_64-linux-gnu/sane
