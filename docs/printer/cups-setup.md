@@ -95,3 +95,29 @@ ldconfig
 printf "usb 0x04f9 0x0222\n" > /etc/sane.d/brother3.conf
 ```
 
+## Host Scanner App
+
+### Install NVM
+
+Link to repo: https://github.com/nvm-sh/nvm
+
+```shell
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+nvm install --lts
+nvm use --lts
+```
+
+### Install Bun
+
+Installation Guide: https://bun.com/docs/installation
+
+```shell
+apt install unzip -y
+curl -fsSL https://bun.com/install | bash -s "bun-v1.2.21"
+```
+
+### Install pm2
+
+```shell
+npm install pm2 -g
+```
